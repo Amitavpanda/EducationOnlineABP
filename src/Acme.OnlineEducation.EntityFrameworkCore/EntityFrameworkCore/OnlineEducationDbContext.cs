@@ -56,6 +56,17 @@ public class OnlineEducationDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
+    
+    
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Enrollment> Enrollments { get; set; }
+    public DbSet<Instructor> Instructors { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<Review> Reviews { get; set; }
+    public DbSet<SessionDetail> SessionDetails { get; set; }
+    public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<CourseCategory> CourseCategories { get; set; }
+
 
     public OnlineEducationDbContext(DbContextOptions<OnlineEducationDbContext> options)
         : base(options)
@@ -63,7 +74,7 @@ public class OnlineEducationDbContext :
         
 
     }
-    public DbSet<CourseCategory> CourseCategories { get; set; }
+    
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -96,6 +107,69 @@ public class OnlineEducationDbContext :
             b.ConfigureByConvention(); // Configures base properties by convention
             b.Property(x => x.CategoryName).IsRequired().HasMaxLength(50);
             b.Property(x => x.Description).HasMaxLength(250);
+        });
+        
+        builder.Entity<Course>(b =>
+        {
+            b.ToTable("Courses");
+            b.ConfigureByConvention(); // Configures base class properties
+            b.Property(x => x.Title).IsRequired().HasMaxLength(128);
+            b.Property(x => x.Description).HasMaxLength(500);
+            b.Property(x => x.Price).HasColumnType("decimal(18, 2)");
+            b.Property(x => x.CourseType).HasMaxLength(50);
+            b.Property(x => x.Thumbnail);
+        });
+        
+        builder.Entity<Enrollment>(b =>
+        {
+            b.ToTable("Enrollments");
+            b.ConfigureByConvention();
+            b.Property(x => x.PaymentStatus).IsRequired().HasMaxLength(20);
+        });
+       
+        builder.Entity<Instructor>(b =>
+        {
+            b.ToTable("Instructors");
+            b.ConfigureByConvention();
+            b.Property(x => x.FirstName).IsRequired().HasMaxLength(50);
+            b.Property(x => x.LastName).IsRequired().HasMaxLength(50);
+            b.Property(x => x.Email);
+            b.Property(x => x.Bio);
+        });
+
+        builder.Entity<Payment>(b =>
+        {
+            b.ToTable("Payments");
+            b.ConfigureByConvention();
+            b.Property(x => x.Amount).HasColumnType("decimal(18, 2)");
+            b.Property(x => x.PaymentMethod).IsRequired().HasMaxLength(50);
+            b.Property(x => x.PaymentStatus).IsRequired().HasMaxLength(20);
+        });
+
+        builder.Entity<Review>(b =>
+        {
+            b.ToTable("Reviews");
+            b.ConfigureByConvention();
+            b.Property(x => x.Comments).HasMaxLength(500);
+        });
+        
+        builder.Entity<SessionDetail>(b =>
+        {
+            b.ToTable("SessionDetails");
+            b.ConfigureByConvention();
+            b.Property(x => x.Title).IsRequired().HasMaxLength(128);
+            b.Property(x => x.Description).HasMaxLength(500);
+            b.Property(x => x.VideoUrl).IsRequired().HasMaxLength(200);
+        });
+        
+        builder.Entity<UserProfile>(b =>
+        {
+            b.ToTable("UserProfiles");
+            b.ConfigureByConvention();
+            b.Property(x => x.DisplayName).IsRequired().HasMaxLength(100);
+            b.Property(x => x.FirstName).IsRequired().HasMaxLength(50);
+            b.Property(x => x.LastName).IsRequired().HasMaxLength(50);
+            b.Property(x => x.ProfilePictureUrl).HasMaxLength(200);
         });
     }
 }

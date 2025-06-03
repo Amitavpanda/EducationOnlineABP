@@ -21,6 +21,7 @@ namespace Acme.OnlineEducation.CourseCategories
         public CourseCategoryAppService(IRepository<CourseCategory, int> repository)
             : base(repository)
         {
+
         }
     }
 }
