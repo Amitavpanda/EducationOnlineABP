@@ -1,0 +1,8 @@
+.abp-card-hover {
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+}
+.abp-card-hover:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 32px 0 rgba(0,123,255,0.15);
+  z-index: 2;
+}

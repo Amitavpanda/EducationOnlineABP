@@ -10,7 +10,7 @@ namespace Acme.OnlineEducation.CourseCategories
 {
     public interface ICourseCategoryAppService : ICrudAppService<
         CourseCategoryDto, // Defines the DTO for the entity
-        int, // Primary key type
+        Guid, // Primary key type
         PagedAndSortedResultRequestDto, // Used for paging/sorting
         CreateUpdateCourseCategoryDto>
     {

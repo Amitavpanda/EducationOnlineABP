@@ -9,11 +9,11 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Acme.OnlineEducation
 {
-    public class Payment : FullAuditedEntity<int>
+    public class Payment : AuditedAggregateRoot<Guid>
     {
-        public int EnrollmentId { get; set; }
+        public Guid EnrollmentId { get; set; }
 
-        [Column(TypeName = "decimal(10, 2)")] 
+        [Column(TypeName = "decimal(10, 2)")]
         public decimal Amount { get; set; }
 
         public DateTime? PaymentDate { get; set; }

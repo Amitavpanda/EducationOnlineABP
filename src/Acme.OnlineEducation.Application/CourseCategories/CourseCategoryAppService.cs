@@ -10,15 +10,15 @@ using Volo.Abp.Domain.Repositories;
 namespace Acme.OnlineEducation.CourseCategories
 {
     public class CourseCategoryAppService :
-    CrudAppService<
-        CourseCategory, // The entity
-        CourseCategoryDto, // The DTO for the entity
-        int, // Primary key type
-        PagedAndSortedResultRequestDto, // Used for paging/sorting
-        CreateUpdateCourseCategoryDto>, // DTO for creating/updating
-    ICourseCategoryAppService
+            CrudAppService<
+                CourseCategory, // The entity
+                CourseCategoryDto, // The DTO for the entity
+                Guid, // Primary key type
+                PagedAndSortedResultRequestDto, // Used for paging/sorting
+                CreateUpdateCourseCategoryDto>, // DTO for creating/updating
+            ICourseCategoryAppService
     {
-        public CourseCategoryAppService(IRepository<CourseCategory, int> repository)
+        public CourseCategoryAppService(IRepository<CourseCategory, Guid> repository)
             : base(repository)
         {
 

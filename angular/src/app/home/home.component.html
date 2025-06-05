@@ -1,321 +1,106 @@
-<div class="row mb-3">
-  <div class="col-xl-6 col-12 d-flex">
-    <div class="card h-lg-100 w-100 overflow-hidden">
-      <div class="card-body">
-        <div class="starting-content pe-5">
-          @if(!hasLoggedIn){
-          <h3>Welcome</h3>
-          <p class="lead text-muted mb-2">
-            {{ '::LongWelcomeMessage' | abpLocalization }}
-          </p>
-          <a (click)="login()" class="px-4 btn btn-primary mb-4" role="button">
-            <i class="fa fa-sign-in"></i>
-            {{ 'AbpAccount::Login' | abpLocalization }}
-          </a>
-          }
-
-          <h4>Getting Started</h4>
-          <p class="lead text-muted mb-2">
-            Learn how to create and run a new web application using the application startup
-            template.
-          </p>
-          <a
-            href="https://abp.io/docs/latest/getting-started"
-            class="btn btn-brand mb-4"
-            target="_blank"
-          >
-            Getting Started
-          </a>
-
-          <h4>Web Application Development Tutorial</h4>
-          <p class="lead text-muted mb-2">
-            Learn how to build an ABP based web application named Acme.BookStore.
-          </p>
-          <a
-            href="https://abp.io/docs/latest/tutorials/book-store/part-01?UI=NG&DB=EF"
-            class="btn btn-brand mb-4"
-            target="_blank"
-          >
-            Explore Tutorial
-          </a>
-        </div>
-        <img class="card-bg-image" src="assets/images/getting-started/bg-01.png" />
-      </div>
+<div id="home-carousel" class="carousel slide mb-5 animate__animated animate__fadeIn" data-bs-ride="carousel" data-bs-interval="3500">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#home-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#home-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#home-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner rounded-4 shadow-lg">
+    <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" class="d-block w-100 object-fit-cover" style="height: 350px;" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" class="d-block w-100 object-fit-cover" style="height: 350px;" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" class="d-block w-100 object-fit-cover" style="height: 350px;" alt="...">
     </div>
   </div>
-  <div class="col-xl-3 col-md-6 d-flex">
-    <div class="row">
-      <div class="col-12 d-flex">
-        <div class="card overflow-hidden mb-3">
-          <div class="card-body d-flex flex-column">
-            <div class="abp-support abp-logo mb-2"></div>
-            <p class="text-muted mb-2">
-              You can check for similar problems and solutions, or open a new topic to discuss your
-              specific issue.
-            </p>
-            <a
-              class="btn btn-brand soft w-50"
-              href="https://abp.io/support/questions"
-              target="_blank"
-            >
-              Visit Support
-            </a>
-            <img
-              style="margin-bottom: -24px"
-              class="w-100 mt-auto"
-              src="assets/images/getting-started/img-support.png"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="col-12 d-flex">
-        <div class="card h-md-100 overflow-hidden">
-          <div class="card-body d-flex flex-column">
-            <div class="abp-blog abp-logo mb-2"></div>
-            <p class="text-muted mb-2">
-              You can find content on .NET development, cross-platform, ASP.NET application
-              templates, ABP-related news, and more.
-            </p>
-            <a
-              class="btn btn-brand soft w-50"
-              href="https://abp.io/blog"
-              target="_blank"
-            >
-              Visit Blog
-            </a>
-            <img
-              style="margin-bottom: -24px"
-              class="w-100 mt-auto"
-              src="assets/images/getting-started/img-blog.png"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-3 col-md-6 d-flex">
-    <div class="card h-100 overflow-hidden">
-      <div class="card-body">
-        <div class="abp-community abp-logo mb-2"></div>
-        <p class="lead text-muted">
-          A unique community platform for <span class="fw-bold">ABP Lovers!</span>
-        </p>
-        <p class="text-muted mb-2">
-          Explore all ABP users' experiences with the ABP Framework, discover articles and videos on
-          how to use ABP, and join raffles for a chance to win surprise gifts!
-        </p>
-        <a
-          class="btn btn-brand soft mb-3"
-          href="https://abp.io/community/"
-          target="_blank"
-        >
-          Join ABP Community
-        </a>
-      </div>
-      <img class="mt-3 w-100" src="assets/images/getting-started/img-community.png" />
-    </div>
-  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#home-carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#home-carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
-<div class="row">
-  <div class="col-xl-3 col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title text-body">More from ABP.IO</div>
-      </div>
-      <div class="card-body pt-0">
-        <div>
-          <table class="table mb-0">
-            <tbody>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <div
-                    class="rounded-circle me-2 flex-center bg-brand soft"
-                    style="width: 20px; height: 20px"
-                  >
-                    <i class="bi bi-check fs-4"></i>
-                  </div>
-                  <div>Latest Release Logs</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://github.com/abpframework/abp/releases" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <div
-                    class="rounded-circle me-2 flex-center bg-brand soft"
-                    style="width: 20px; height: 20px"
-                  >
-                    <i class="bi bi-check fs-4"></i>
-                  </div>
-                  <div>Video Courses</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://abp.io/video-courses/essentials" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <div
-                    class="rounded-circle me-2 flex-center bg-brand soft"
-                    style="width: 20px; height: 20px"
-                  >
-                    <i class="bi bi-check fs-4"></i>
-                  </div>
-                  <div>Samples</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://abp.io/docs/latest/Samples/Index" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <div
-                    class="rounded-circle me-2 flex-center bg-brand soft"
-                    style="width: 20px; height: 20px"
-                  >
-                    <i class="bi bi-check fs-4"></i>
-                  </div>
-                  <div>Books</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://abp.io/books" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex border-bottom-0">
-                  <div
-                    class="rounded-circle me-2 flex-center bg-brand soft"
-                    style="width: 20px; height: 20px"
-                  >
-                    <i class="bi bi-check fs-4"></i>
-                  </div>
-                  <div>FAQ</div>
-                </td>
-                <td class="text-end pe-0 opacity-25 border-bottom-0">
-                  <a href="https://abp.io/faq" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+<div class="text-center mb-5 animate__animated animate__fadeInDown animate__delay-1s">
+  <h4 class="fw-bold display-6 mb-2 text-gradient-abp">{{ '::Home:Carousel1Text' | abpLocalization }}</h4>
+  <h5 class="text-primary mb-1 animate__animated animate__fadeInUp animate__delay-2s">{{ '::Home:Carousel2Text' | abpLocalization }}</h5>
+  <p class="lead text-muted animate__animated animate__fadeInUp animate__delay-3s">{{ '::Home:Carousel3Text' | abpLocalization }}</p>
+</div>
+
+<app-category-list [categories]="categories" [loading]="loadingCategories"></app-category-list>
+
+<div class="container mb-5" id="plan-and-pricing">
+  <div class="text-center mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+    <h2 class="fw-bold text-abp">{{ '::Home:ChoosePlan' | abpLocalization }}</h2>
+    <p class="text-muted">{{ '::Home:PlanDescription' | abpLocalization }}</p>
+  </div>
+  <div class="row justify-content-center g-4">
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-lg animate__animated animate__zoomIn animate__delay-1s abp-card-hover">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-primary">{{ '::Home:FreePlan' | abpLocalization }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ '::Home:FreePlanPrice' | abpLocalization }}</h6>
+          <p class="card-text small">{{ '::Home:FreePlanFeatures' | abpLocalization }}</p>
+          <button class="btn btn-outline-primary btn-sm mt-2 animate__animated animate__pulse animate__infinite">{{ '::Home:SelectPlan' | abpLocalization }}</button>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-6 col-lg-8 d-flex">
-    <div class="card">
-      <div class="card-body d-flex">
-        <div class="row align-items-center">
-          <div class="col-md-8">
-            <p class="text-muted mb-0">THE OFFICIAL GUIDE</p>
-            <h3>Mastering ABP Framework</h3>
-            <p class="text-muted">
-              Written by the creator of the ABP Framework, this book will help you gain a complete
-              understanding of the framework and modern web application development techniques.
-            </p>
-            <div class="d-md-flex mb-2 mb-md-0">
-              <a
-                href="https://www.amazon.com/gp/product/B097Z2DM8Q"
-                target="_blank"
-                class="btn btn-primary soft me-md-2 mb-2 mb-md-0"
-              >
-                Buy on Amazon US
-              </a>
-              <a
-                href="https://www.packtpub.com/product/mastering-abp-framework/9781801079242"
-                target="_blank"
-                class="btn btn-primary soft mb-2 mb-md-0"
-              >
-                Buy on PACKT
-              </a>
-            </div>
-          </div>
-          <div class="col">
-            <img class="w-100" src="assets/images/getting-started/book.png" />
-          </div>
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-lg animate__animated animate__zoomIn animate__delay-2s abp-card-hover">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-success">{{ '::Home:BasicPlan' | abpLocalization }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ '::Home:BasicPlanPrice' | abpLocalization }}</h6>
+          <p class="card-text small">{{ '::Home:BasicPlanFeatures' | abpLocalization }}</p>
+          <button class="btn btn-primary btn-sm mt-2 animate__animated animate__pulse animate__infinite">{{ '::Home:SelectPlan' | abpLocalization }}</button>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-xl-3 col-lg-4">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title text-body">Follow us on Social Media</div>
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-lg animate__animated animate__zoomIn animate__delay-3s abp-card-hover">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-info">{{ '::Home:ProPlan' | abpLocalization }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ '::Home:ProPlanPrice' | abpLocalization }}</h6>
+          <p class="card-text small">{{ '::Home:ProPlanFeatures' | abpLocalization }}</p>
+          <button class="btn btn-success btn-sm mt-2 animate__animated animate__pulse animate__infinite">{{ '::Home:SelectPlan' | abpLocalization }}</button>
+        </div>
       </div>
-      <div class="card-body pt-0">
-        <div>
-          <table class="table mb-0">
-            <tbody>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <div class="logo-x me-2"></div>
-                  <div>X.com</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://twitter.com/abpframework" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <img src="assets/images/getting-started/discord.svg" class="me-2" />
-                  <div>Discord</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://abp.io/community/discord" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <img src="assets/images/getting-started/stack-overflow.svg" class="me-2" />
-                  <div>Stack Overflow</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://stackoverflow.com/questions/tagged/abp" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex">
-                  <img src="assets/images/getting-started/youtube.svg" class="me-2" />
-                  <div>YouTube</div>
-                </td>
-                <td class="text-end pe-0 opacity-25">
-                  <a href="https://www.youtube.com/@Volosoft" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="ps-0 d-flex border-bottom-0">
-                  <img src="assets/images/getting-started/instagram.svg" class="me-2" />
-                  <div>Instagram</div>
-                </td>
-                <td class="text-end pe-0 opacity-25 border-bottom-0">
-                  <a href="https://www.instagram.com/abpframework/" target="_blank">
-                    <i class="fa fa-external-link text-dark"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    </div>
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-lg animate__animated animate__zoomIn animate__delay-4s abp-card-hover">
+        <div class="card-body text-center">
+          <h5 class="card-title fw-bold text-warning">{{ '::Home:PremiumPlan' | abpLocalization }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ '::Home:PremiumPlanPrice' | abpLocalization }}</h6>
+          <p class="card-text small">{{ '::Home:PremiumPlanFeatures' | abpLocalization }}</p>
+          <button class="btn btn-warning btn-sm mt-2 animate__animated animate__pulse animate__infinite">{{ '::Home:SelectPlan' | abpLocalization }}</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+.text-gradient-abp {
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-abp {
+  color: #007bff;
+}
+.abp-card-hover {
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+}
+.abp-card-hover:hover {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 8px 32px 0 rgba(0,123,255,0.15);
+  z-index: 2;
+}
+.object-fit-cover {
+  object-fit: cover;
+}
+</style>

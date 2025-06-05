@@ -119,14 +119,26 @@ public class OnlineEducationDbContext :
             b.Property(x => x.CourseType).HasMaxLength(50);
             b.Property(x => x.Thumbnail);
         });
-        
+
         builder.Entity<Enrollment>(b =>
         {
             b.ToTable("Enrollments");
             b.ConfigureByConvention();
             b.Property(x => x.PaymentStatus).IsRequired().HasMaxLength(20);
+
+
+            // Set only one FK to cascade, the other to restrict/no action
+            b.HasOne(e => e.Course)
+                .WithMany(c => c.Enrollments)
+                .HasForeignKey(e => e.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            b.HasOne(e => e.User)
+                .WithMany(u => u.Enrollments)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict); // or .OnDelete(DeleteBehavior.NoAction)
         });
-       
+
         builder.Entity<Instructor>(b =>
         {
             b.ToTable("Instructors");
@@ -151,8 +163,18 @@ public class OnlineEducationDbContext :
             b.ToTable("Reviews");
             b.ConfigureByConvention();
             b.Property(x => x.Comments).HasMaxLength(500);
+
+            b.HasOne(r => r.Course)
+                .WithMany(c => c.Reviews)
+                .HasForeignKey(r => r.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            b.HasOne(r => r.User)
+                .WithMany(u => u.Reviews)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
-        
+
         builder.Entity<SessionDetail>(b =>
         {
             b.ToTable("SessionDetails");
@@ -161,7 +183,7 @@ public class OnlineEducationDbContext :
             b.Property(x => x.Description).HasMaxLength(500);
             b.Property(x => x.VideoUrl).IsRequired().HasMaxLength(200);
         });
-        
+
         builder.Entity<UserProfile>(b =>
         {
             b.ToTable("UserProfiles");

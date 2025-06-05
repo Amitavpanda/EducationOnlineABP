@@ -1,0 +1,34 @@
+<div class="container mb-5">
+  <div *ngIf="!loading && courses.length === 0" class="text-center my-5">
+    <div class="alert alert-info py-4 rounded-4 shadow-sm animate__animated animate__fadeInUp">
+      <h4 class="mb-2">Add new course, currently no course available</h4>
+      <p class="mb-0">Start by creating your first course for this category!</p>
+    </div>
+  </div>
+  <div class="row justify-content-center g-4" *ngIf="courses.length > 0">
+    <div class="col-md-4 col-lg-3" *ngFor="let course of courses">
+      <div class="card h-100 border-0 shadow-lg abp-card-hover course-card animate__animated animate__fadeInUp">
+        <img [src]="course.thumbnail" class="card-img-top course-img" [alt]="course.title">
+        <div class="card-body d-flex flex-column p-4 align-items-center">
+          <h5 class="card-title fw-bold text-primary mb-2 text-center">{{ course.title }}</h5>
+          <p class="card-text small text-muted text-center mb-3">{{ course.description }}</p>
+          <ul class="list-unstyled mb-3 w-100">
+            <li><i class="bi bi-currency-dollar text-success me-1"></i> <strong>Price:</strong> ${{ course.price }}</li>
+            <li><i class="bi bi-laptop text-info me-1"></i> <strong>Type:</strong> {{ course.courseType }}</li>
+            <li><i class="bi bi-clock-history text-warning me-1"></i> <strong>Duration:</strong> {{ course.duration }} days</li>
+            <li><i class="bi bi-people text-secondary me-1"></i> <strong>Seats:</strong> {{ course.seatsAvailable }}</li>
+          </ul>
+          <div class="d-flex gap-2 w-100 justify-content-center mt-auto">
+            <button class="btn btn-gradient-abp px-3 py-2 rounded-pill shadow-sm">Enroll Now</button>
+            <button class="btn btn-outline-primary px-3 py-2 rounded-pill shadow-sm">Course Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

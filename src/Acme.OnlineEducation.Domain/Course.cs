@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Acme.OnlineEducation
 {
-    public class Course : Entity<int>
+    public class Course : AuditedAggregateRoot<Guid>
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -16,8 +17,8 @@ namespace Acme.OnlineEducation
         public string CourseType { get; set; }
         public int? SeatsAvailable { get; set; }
         public decimal Duration { get; set; }
-        public int CategoryId { get; set; }
-        public int InstructorId { get; set; }
+        public Guid CategoryId { get; set; }
+        public Guid InstructorId { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string Thumbnail { get; set; }

@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
+import { ToastComponent } from './shared/toast.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
     CoreModule,
     ThemeLeptonXModule.forRoot(),
     SideMenuLayoutModule.forRoot(),
+    ToastComponent
   ],
   providers: [
     APP_ROUTE_PROVIDER,

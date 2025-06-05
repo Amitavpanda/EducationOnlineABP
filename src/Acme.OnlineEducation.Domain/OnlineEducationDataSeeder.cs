@@ -12,6 +12,39 @@ namespace Acme.OnlineEducation
 {
     internal class OnlineEducationDataSeeder : IDataSeedContributor, ITransientDependency
     {
+        private readonly IRepository<CourseCategory, Guid> _courseCategoryRepository;
+        private readonly IRepository<UserProfile, Guid> _userProfileRepository;
+        private readonly IRepository<Course, Guid> _courseRepository;
+        private readonly IRepository<Instructor, Guid> _instructorRepository;
+        private readonly IRepository<Enrollment, Guid> _enrollmentRepository;
+        private readonly IRepository<Payment, Guid> _paymentRepository;
+        private readonly IRepository<Review, Guid> _reviewRepository;
+        private readonly IRepository<SessionDetail, Guid> _sessionDetailRepository;
+
+        public OnlineEducationDataSeeder(
+            IRepository<CourseCategory, Guid> courseCategoryRepository,
+            IRepository<UserProfile, Guid> userProfileRepository,
+            IRepository<Course, Guid> courseRepository,
+            IRepository<Instructor, Guid> instructorRepository,
+            IRepository<Enrollment, Guid> enrollmentRepository,
+            IRepository<Payment, Guid> paymentRepository,
+            IRepository<Review, Guid> reviewRepository,
+            IRepository<SessionDetail, Guid> sessionDetailRepository)
+               
+
+            
+            
+        {
+            _courseCategoryRepository = courseCategoryRepository ?? throw new ArgumentNullException(nameof(courseCategoryRepository));
+            _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
+            _courseRepository = courseRepository ?? throw new ArgumentNullException(nameof(courseRepository));
+            _instructorRepository = instructorRepository ?? throw new ArgumentNullException(nameof(instructorRepository));
+            _enrollmentRepository = enrollmentRepository ?? throw new ArgumentNullException(nameof(enrollmentRepository));
+            _paymentRepository = paymentRepository ?? throw new ArgumentNullException(nameof(paymentRepository));
+            _reviewRepository = reviewRepository ?? throw new ArgumentNullException(nameof(reviewRepository));
+            _sessionDetailRepository = sessionDetailRepository ?? throw new ArgumentNullException(nameof(sessionDetailRepository));
+        }
+
         public async Task SeedAsync(DataSeedContext context)
         {
             if (await _courseCategoryRepository.GetCountAsync() <= 0)
@@ -29,30 +62,7 @@ namespace Acme.OnlineEducation
                     autoSave: true
                 );
             }
-            
-            // Seed Instructors
-            if (await _instructorRepository.GetCountAsync() <= 0)
-            {
-                await _instructorRepository.InsertAsync(new Instructor
-                {
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Email = "john.doe@example.com",
-                    Bio = "Experienced software developer and instructor.",
-                    UserId = 1
-                }, autoSave: true);
 
-                await _instructorRepository.InsertAsync(new Instructor
-                {
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    Email = "jane.smith@example.com",
-                    Bio = "Data science expert with 10+ years of experience.",
-                    UserId = 2
-                }, autoSave: true);
-            }
-            
-            // Seed User Profiles
             if (await _userProfileRepository.GetCountAsync() <= 0)
             {
                 await _userProfileRepository.InsertAsync(new UserProfile
@@ -75,130 +85,184 @@ namespace Acme.OnlineEducation
                     ProfilePictureUrl = "https://example.com/user2.jpg"
                 }, autoSave: true);
             }
-            
-            
+
+            // Seed Instructors
+            if (await _instructorRepository.GetCountAsync() <= 0)
+            {
+                var user1 = await _userProfileRepository.FirstOrDefaultAsync(u => u.Email == "alice.johnson@example.com");
+                var user2 = await _userProfileRepository.FirstOrDefaultAsync(u => u.Email == "bob.brown@example.com");
+
+                if (user1 != null)
+                {
+                    await _instructorRepository.InsertAsync(new Instructor
+                    {
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Email = "john.doe@example.com",
+                        Bio = "Experienced software developer and instructor.",
+                        UserId = user1.Id,
+                    }, autoSave: true);
+                }
+
+                if (user2 != null)
+                {
+                    await _instructorRepository.InsertAsync(new Instructor
+                    {
+                        FirstName = "Jane",
+                        LastName = "Smith",
+                        Email = "jane.smith@example.com",
+                        Bio = "Data science expert with 10+ years of experience.",
+                        UserId = user2.Id,
+                    }, autoSave: true);
+                }
+            }
+
             // Seed Courses
             if (await _courseRepository.GetCountAsync() <= 0)
             {
-                await _courseRepository.InsertAsync(new Course
-                {
-                    Title = "Introduction to C#",
-                    Description = "Learn the basics of C# programming.",
-                    Price = 49.99m,
-                    CourseType = "Online",
-                    SeatsAvailable = 50,
-                    Duration = 10,
-                    CategoryId = 1, // Programming
-                    InstructorId = 1, // John Doe
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(1),
-                    Thumbnail = "https://example.com/csharp.jpg"
-                }, autoSave: true);
+                // Get categories by name
+                var programmingCategory = await _courseCategoryRepository.FirstOrDefaultAsync(c => c.CategoryName == "Programming");
+                var designCategory = await _courseCategoryRepository.FirstOrDefaultAsync(c => c.CategoryName == "Design");
 
-                await _courseRepository.InsertAsync(new Course
+                // Get instructors by email
+                var johnInstructor = await _instructorRepository.FirstOrDefaultAsync(i => i.Email == "john.doe@example.com");
+                var janeInstructor = await _instructorRepository.FirstOrDefaultAsync(i => i.Email == "jane.smith@example.com");
+                if (programmingCategory != null && johnInstructor != null)
                 {
-                    Title = "Machine Learning Basics",
-                    Description = "An introduction to machine learning concepts.",
-                    Price = 99.99m,
-                    CourseType = "Online",
-                    SeatsAvailable = 30,
-                    Duration = 15,
-                    CategoryId = 2, // Data Science
-                    InstructorId = 2, // Jane Smith
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(2),
-                    Thumbnail = "https://example.com/ml.jpg"
-                }, autoSave: true);
+                    await _courseRepository.InsertAsync(new Course
+                    {
+                        Title = "Introduction to C#",
+                        Description = "Learn the basics of C# programming.",
+                        Price = 49.99m,
+                        CourseType = "Online",
+                        SeatsAvailable = 50,
+                        Duration = 10,
+                        CategoryId = programmingCategory.Id,
+                        InstructorId = johnInstructor.Id,
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now.AddMonths(1),
+                        Thumbnail = "https://example.com/csharp.jpg"
+                    }, autoSave: true);
+                }
+
+
+                if (designCategory != null && janeInstructor != null)
+                {
+                    await _courseRepository.InsertAsync(new Course
+                    {
+                        Title = "Machine Learning Basics",
+                        Description = "An introduction to machine learning concepts.",
+                        Price = 99.99m,
+                        CourseType = "Online",
+                        SeatsAvailable = 30,
+                        Duration = 15,
+                        CategoryId = designCategory.Id,
+                        InstructorId = janeInstructor.Id,
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now.AddMonths(2),
+                        Thumbnail = "https://example.com/ml.jpg"
+                    }, autoSave: true);
+                }
             }
-            
-            
-            
+
             // Seed Enrollments
             if (await _enrollmentRepository.GetCountAsync() <= 0)
             {
-                await _enrollmentRepository.InsertAsync(new Enrollment
-                {
-                    CourseId = 1, // Introduction to C#
-                    UserId = 1, // Alice Johnson
-                    EnrollmentDate = DateTime.Now,
-                    PaymentStatus = "Paid"
-                }, autoSave: true);
+                // Get users by email
+                var alice = await _userProfileRepository.FirstOrDefaultAsync(u => u.Email == "alice.johnson@example.com");
+                var bob = await _userProfileRepository.FirstOrDefaultAsync(u => u.Email == "bob.brown@example.com");
 
-                await _enrollmentRepository.InsertAsync(new Enrollment
+                // Get courses by title
+                var csharpCourse = await _courseRepository.FirstOrDefaultAsync(c => c.Title == "Introduction to C#");
+                var mlCourse = await _courseRepository.FirstOrDefaultAsync(c => c.Title == "Machine Learning Basics");
+
+                if (alice != null && csharpCourse != null)
                 {
-                    CourseId = 2, // Machine Learning Basics
-                    UserId = 2, // Bob Brown
-                    EnrollmentDate = DateTime.Now,
-                    PaymentStatus = "Pending"
-                }, autoSave: true);
+                    await _enrollmentRepository.InsertAsync(new Enrollment
+                    {
+                        CourseId = csharpCourse.Id,
+                        UserId = alice.Id,
+                        EnrollmentDate = DateTime.Now,
+                        PaymentStatus = "Paid"
+                    }, autoSave: true);
+                }
+
+                if (bob != null && mlCourse != null)
+                {
+                    await _enrollmentRepository.InsertAsync(new Enrollment
+                    {
+                        CourseId = mlCourse.Id,
+                        UserId = bob.Id,
+                        EnrollmentDate = DateTime.Now,
+                        PaymentStatus = "Pending"
+                    }, autoSave: true);
+                }
             }
 
             // Seed Payments
             if (await _paymentRepository.GetCountAsync() <= 0)
             {
-                await _paymentRepository.InsertAsync(new Payment
+                // Get Alice's enrollment for "Introduction to C#"
+                var alice = await _userProfileRepository.FirstOrDefaultAsync(u => u.Email == "alice.johnson@example.com");
+                var csharpCourse = await _courseRepository.FirstOrDefaultAsync(c => c.Title == "Introduction to C#");
+                Enrollment aliceEnrollment = null;
+
+                if (alice != null && csharpCourse != null)
                 {
-                    EnrollmentId = 1, // Alice's enrollment
-                    Amount = 49.99m,
-                    PaymentDate = DateTime.Now,
-                    PaymentMethod = "Credit Card",
-                    PaymentStatus = "Completed"
-                }, autoSave: true);
+                    aliceEnrollment = await _enrollmentRepository.FirstOrDefaultAsync(e =>
+                        e.UserId == alice.Id && e.CourseId == csharpCourse.Id);
+                }
+
+                if (aliceEnrollment != null)
+                {
+                    await _paymentRepository.InsertAsync(new Payment
+                    {
+                        EnrollmentId = aliceEnrollment.Id,
+                        Amount = 49.99m,
+                        PaymentDate = DateTime.Now,
+                        PaymentMethod = "Credit Card",
+                        PaymentStatus = "Completed"
+                    }, autoSave: true);
+                }
             }
-            
+
             // Seed Reviews
             if (await _reviewRepository.GetCountAsync() <= 0)
             {
-                await _reviewRepository.InsertAsync(new Review
+                // Get Alice and the C# course
+                var alice = await _userProfileRepository.FirstOrDefaultAsync(u => u.Email == "alice.johnson@example.com");
+                var csharpCourse = await _courseRepository.FirstOrDefaultAsync(c => c.Title == "Introduction to C#");
+
+                if (alice != null && csharpCourse != null)
                 {
-                    CourseId = 1, // Introduction to C#
-                    UserId = 1, // Alice Johnson
-                    Rating = 5,
-                    Comments = "Great course! Very informative.",
-                    ReviewDate = DateTime.Now
-                }, autoSave: true);
+                    await _reviewRepository.InsertAsync(new Review
+                    {
+                        CourseId = csharpCourse.Id,
+                        UserId = alice.Id,
+                        Rating = 5,
+                        Comments = "Great course! Very informative.",
+                        ReviewDate = DateTime.Now
+                    }, autoSave: true);
+                }
             }
-            
+
             // Seed Session Details
             if (await _sessionDetailRepository.GetCountAsync() <= 0)
             {
-                await _sessionDetailRepository.InsertAsync(new SessionDetail
+                var csharpCourse = await _courseRepository.FirstOrDefaultAsync(c => c.Title == "Introduction to C#");
+
+                if (csharpCourse != null)
                 {
-                    CourseId = 1, // Introduction to C#
-                    Title = "Introduction to C# Basics",
-                    Description = "Learn the basics of C# programming.",
-                    VideoUrl = "https://example.com/csharp-session1.mp4",
-                    VideoOrder = 1
-                }, autoSave: true);
+                    await _sessionDetailRepository.InsertAsync(new SessionDetail
+                    {
+                        CourseId = csharpCourse.Id,
+                        Title = "Introduction to C# Basics",
+                        Description = "Learn the basics of C# programming.",
+                        VideoUrl = "https://www.youtube.com/watch?v=s50VT-kn1fE",
+                        VideoOrder = 1
+                    }, autoSave: true);
+                }
             }
         }
-
-        private readonly IRepository<CourseCategory, int> _courseCategoryRepository;
-        private readonly IRepository<Instructor, int> _instructorRepository;
-        private readonly IRepository<UserProfile, int> _userProfileRepository;
-        private readonly IRepository<Course, int> _courseRepository;
-        private readonly IRepository<Enrollment, int> _enrollmentRepository;
-        private readonly IRepository<Payment, int> _paymentRepository;
-        private readonly IRepository<Review, int> _reviewRepository;
-        private readonly IRepository<SessionDetail, int> _sessionDetailRepository;
-        public OnlineEducationDataSeeder(IRepository<CourseCategory, int> courseCategoryRepository, IRepository<Instructor, int> instructorRepository,
-            IRepository<UserProfile, int> userProfileRepository,
-            IRepository<Course, int> courseRepository,
-            IRepository<Enrollment, int> enrollmentRepository,
-            IRepository<Payment, int> paymentRepository,
-            IRepository<Review, int> reviewRepository,
-            IRepository<SessionDetail, int> sessionDetailRepository)
-        {
-            _courseCategoryRepository = courseCategoryRepository;
-            _instructorRepository = instructorRepository;
-            _userProfileRepository = userProfileRepository;
-            _courseRepository = courseRepository;
-            _enrollmentRepository = enrollmentRepository;
-            _paymentRepository = paymentRepository;
-            _reviewRepository = reviewRepository;
-            _sessionDetailRepository = sessionDetailRepository;
-        }
-
-
     }
 }

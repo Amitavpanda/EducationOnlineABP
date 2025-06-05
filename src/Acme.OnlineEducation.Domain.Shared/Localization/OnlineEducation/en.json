@@ -1,9 +1,36 @@
 {
   "Culture": "en",
   "Texts": {
-    "AppName": "OnlineEducation",
+    "AppName": "OnlineEducation ABP",
     "Menu:Home": "Home",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information visit",
-    "Welcome": "Welcome"
+    "Welcome": "Welcome",
+    "Menu:Courses": "Courses",
+    "Menu:AllCategories": "All Categories",
+    "Menu:Enrollments": "Enrollments",
+    "Menu:AllCourses": "All Courses",
+    "Menu:PlanAndPricing": "Plan and Pricing",
+    "Menu:ContactUs": "Contact Us",
+    "Menu:AboutUs": "About Us",
+
+    "Home:Carousel1Text": "Trusted by over 4400+ individuals from YouTube and millions of learners around the world",
+    "Home:Carousel2Text": "All the Skills You Need in One Place",
+    "Home:Carousel3Text": "From critical skills to technical topics, SmartLearn by Karthik supports your professional development.",
+
+    "Home:ChoosePlan": "Choose a Plan for Success",
+    "Home:PlanDescription": "Don't want to buy courses one by one? Pick a plan to help you achieve your learning goals faster.",
+    "Home:FreePlan": "Free Plan",
+    "Home:FreePlanPrice": "$00.00 / month",
+    "Home:FreePlanFeatures": "Access to 8 courses, Community Support, Access on mobile and TV",
+    "Home:BasicPlan": "Basic Plan",
+    "Home:BasicPlanPrice": "$19.99 / month",
+    "Home:BasicPlanFeatures": "Access to 10 courses, Community Support, Access on mobile and TV",
+    "Home:ProPlan": "Pro Plan",
+    "Home:ProPlanPrice": "$39.99 / month",
+    "Home:ProPlanFeatures": "Access to all courses, Priority Support, Offline viewing, Exclusive Webinars",
+    "Home:PremiumPlan": "Premium Plan",
+    "Home:PremiumPlanPrice": "$59.99 / month",
+    "Home:PremiumPlanFeatures": "All Pro Plan features, 1-on-1 Mentoring, Access to Premium Courses, Early Access to New Content",
+    "Home:SelectPlan": "Select Plan"
   }
 }
