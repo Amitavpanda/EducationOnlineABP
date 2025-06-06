@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from './course.service';
 import { CourseDto } from './course.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastService } from '../shared/toast.service';
+import { InstructorService } from './instructor.service';
+import { CategoryService } from '../categories/category.service';
 
 @Component({
   selector: 'app-courses-page',
@@ -12,10 +14,12 @@ import { ToastService } from '../shared/toast.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './courses-page.component.html',
 })
-export class CoursesPageComponent {
+export class CoursesPageComponent implements OnInit {
   courses: CourseDto[] = [];
   loading = true;
   categoryId: string | null = null;
+  instructors: any[] = [];
+  categories: any[] = [];
 
   // Modal state
   showModal = false;
@@ -32,7 +36,9 @@ export class CoursesPageComponent {
   constructor(
     private route: ActivatedRoute,
     private courseService: CourseService,
-    private toast: ToastService
+    private toast: ToastService,
+    private instructorService: InstructorService,
+    private categoryService: CategoryService
   ) {
     this.route.paramMap.subscribe(params => {
       this.categoryId = params.get('id');
@@ -42,10 +48,39 @@ export class CoursesPageComponent {
     });
   }
 
+  ngOnInit() {
+    this.instructorService.getInstructors().subscribe(data => this.instructors = data);
+    if (this.route.snapshot.routeConfig?.path === 'all-courses') {
+      this.categoryService.getList().subscribe(data => this.categories = data);
+    }
+    this.route.paramMap.subscribe(params => {
+      this.categoryId = params.get('id');
+      if (this.route.snapshot.routeConfig?.path === 'all-courses') {
+        this.loadAllCourses();
+      } else if (this.categoryId) {
+        this.loadCourses();
+      }
+    });
+  }
+
   loadCourses() {
-    if (!this.categoryId) return;
+    if (!this.categoryId) {
+      this.loadAllCourses();
+      return;
+    }
     this.loading = true;
     this.courseService.getByCategory(this.categoryId).subscribe({
+      next: data => {
+        this.courses = data;
+        this.loading = false;
+      },
+      error: () => this.loading = false
+    });
+  }
+
+  loadAllCourses() {
+    this.loading = true;
+    this.courseService.getAll().subscribe({
       next: data => {
         this.courses = data;
         this.loading = false;

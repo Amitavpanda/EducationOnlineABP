@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acme.OnlineEducation.Permissions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,11 @@ namespace Acme.OnlineEducation.CourseCategories
         public CourseCategoryAppService(IRepository<CourseCategory, Guid> repository)
             : base(repository)
         {
-
+            GetPolicyName = OnlineEducationPermissions.Categories.Default;
+            GetListPolicyName = OnlineEducationPermissions.Categories.Default;
+            CreatePolicyName = OnlineEducationPermissions.Categories.Create;
+            UpdatePolicyName = OnlineEducationPermissions.Categories.Edit;
+            DeletePolicyName = OnlineEducationPermissions.Categories.Delete;
         }
     }
 }

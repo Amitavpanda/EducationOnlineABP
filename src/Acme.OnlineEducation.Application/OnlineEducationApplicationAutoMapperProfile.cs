@@ -23,6 +23,7 @@ public class OnlineEducationApplicationAutoMapperProfile : Profile
 
         //CreateMap<Enrollment, EnrollmentDto>();
         CreateMap<Instructor, InstructorDto>();
+        CreateMap<CreateUpdateInstructorDto, Instructor>();
 
         CreateMap<Review, UserReviewDto>();
         CreateMap<CreateUpdateUserReviewDto, Review>();

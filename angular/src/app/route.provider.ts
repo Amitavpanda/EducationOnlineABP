@@ -32,40 +32,25 @@ function configureRoutes() {
       layout: eLayoutType.application,
     },
     {
-      path: '/enrollments',
-      name: '::Menu:Enrollments',
-      iconClass: 'fas fa-user-graduate',
-      order: 2,
-      parentName: '::Menu:Courses',
-      layout: eLayoutType.application,
-    },
-    {
       path: '/all-courses',
       name: '::Menu:AllCourses',
       iconClass: 'fas fa-list-alt',
-      order: 3,
+      order: 2,
       parentName: '::Menu:Courses',
-      layout: eLayoutType.application,
-    },
-    {
-      path: '/plan-and-pricing',
-      name: '::Menu:PlanAndPricing',
-      iconClass: 'fas fa-tags',
-      order: 3,
       layout: eLayoutType.application,
     },
     {
       path: '/contact-us',
       name: '::Menu:ContactUs',
       iconClass: 'fas fa-envelope',
-      order: 4,
+      order: 3,
       layout: eLayoutType.application,
     },
     {
       path: '/about-us',
       name: '::Menu:AboutUs',
       iconClass: 'fas fa-info-circle',
-      order: 5,
+      order: 4,
       layout: eLayoutType.application,
     }
   ]);

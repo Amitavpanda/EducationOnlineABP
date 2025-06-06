@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'courses/:id',
     loadComponent: () => import('./courses/courses-page.component').then(m => m.CoursesPageComponent)
   },
+  {
+    path: 'all-courses',
+    loadComponent: () => import('./courses/courses-page.component').then(m => m.CoursesPageComponent)
+  },
 ];
 
 @NgModule({

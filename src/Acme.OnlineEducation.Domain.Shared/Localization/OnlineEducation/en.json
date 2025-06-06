@@ -31,6 +31,18 @@
     "Home:PremiumPlan": "Premium Plan",
     "Home:PremiumPlanPrice": "$59.99 / month",
     "Home:PremiumPlanFeatures": "All Pro Plan features, 1-on-1 Mentoring, Access to Premium Courses, Early Access to New Content",
-    "Home:SelectPlan": "Select Plan"
+    "Home:SelectPlan": "Select Plan",
+
+
+
+    "Permission:OnlineEducation": "Online Education",
+    "Permission:Courses": "Course Management",
+    "Permission:Courses.Create": "Create courses",
+    "Permission:Courses.Edit": "Edit courses",
+    "Permission:Courses.Delete": "Delete courses",
+    "Permission:Categories": "Category Management",
+    "Permission:Categories.Create": "Create categories",
+    "Permission:Categories.Edit": "Edit categories",
+    "Permission:Categories.Delete": "Delete categories"
   }
 }

@@ -8,6 +8,8 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.ObjectMapping;
+using Acme.OnlineEducation.Permissions;
+
 
 namespace Acme.OnlineEducation.Courses
 {
@@ -20,6 +22,9 @@ namespace Acme.OnlineEducation.Courses
         CreateUpdateCourseDto>, 
         ICourseAppService 
     {
+
+
+
         private readonly IRepository<Course, Guid> _courseRepository;
         private readonly IRepository<Instructor, Guid> _instructorRepository;
         private readonly IRepository<SessionDetail, Guid> _sessionDetailRepository;
@@ -36,6 +41,13 @@ namespace Acme.OnlineEducation.Courses
             _instructorRepository = instructorRepository;
             _sessionDetailRepository = sessionDetailRepository;
             _userReviewRepository = userReviewRepository;
+
+
+            GetPolicyName = OnlineEducationPermissions.Courses.Default;
+            GetListPolicyName = OnlineEducationPermissions.Courses.Default;
+            CreatePolicyName = OnlineEducationPermissions.Courses.Create;
+            UpdatePolicyName = OnlineEducationPermissions.Courses.Edit;
+            DeletePolicyName = OnlineEducationPermissions.Courses.Delete;
         }
 
         // Get detailed course information (including reviews, session details, and user ratings)

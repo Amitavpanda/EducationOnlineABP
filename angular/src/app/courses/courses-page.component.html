@@ -9,7 +9,7 @@
   <div class="row g-4 justify-content-center" *ngIf="courses.length > 0; else noCourses">
     <div class="col-12 col-sm-6 col-md-9 col-lg-9 col-xl-10 d-flex justify-content-center" *ngFor="let course of courses">
       <div class="card h-100 w-100 border-0 shadow-lg abp-card-hover course-card p-0" style="max-width: 340px; min-width: 260px;">
-        <img *ngIf="course.thumbnail" [src]="course.thumbnail" class="card-img-top" alt="{{ course.title }}" style="object-fit: cover; height: 180px; border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
+        <img *ngIf="course.thumbnail" src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" class="card-img-top" alt="{{ course.title }}" style="object-fit: cover; height: 180px; border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title fw-bold mb-2">{{ course.title }}</h5>
           <p class="card-text text-muted mb-2">{{ course.description }}</p>
@@ -70,7 +70,11 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Type</label>
-                <input type="text" class="form-control" [(ngModel)]="modalCourse.courseType" name="courseType">
+                <select class="form-select" [(ngModel)]="modalCourse.courseType" name="courseType" required>
+                  <option value="" disabled selected>Select Type</option>
+                  <option value="Online">Online</option>
+                  <option value="Offline">Offline</option>
+                </select>
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Seats Available</label>
@@ -89,7 +93,21 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Instructor</label>
-              <input type="text" class="form-control" [(ngModel)]="modalCourse.instructor" name="instructor">
+              <select class="form-select" [(ngModel)]="modalCourse.instructorId" name="instructorId" required>
+                <option value="" disabled selected>Select Instructor</option>
+                <option *ngFor="let instructor of instructors" [value]="instructor.id">
+                  {{ instructor.firstName }} {{ instructor.lastName }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3" *ngIf="!categoryId">
+              <label class="form-label">Category</label>
+              <select class="form-select" [(ngModel)]="modalCourse.categoryId" name="categoryId" required>
+                <option value="" disabled selected>Select Category</option>
+                <option *ngFor="let category of categories" [value]="category.id">
+                  {{ category.categoryName }}
+                </option>
+              </select>
             </div>
             <div class="mb-3">
               <label class="form-label">Image URL</label>

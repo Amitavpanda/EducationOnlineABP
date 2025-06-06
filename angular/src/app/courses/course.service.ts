@@ -3,16 +3,24 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourseDto } from './course.model';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CourseService {
-  private apiUrl = environment.apis.default.url + '/api/app/course/courses';
+  private apiUrl = environment.apis.default.url + '/api/app/course';
+  private apiUrlByCategory = environment.apis.default.url + '/api/app/course/courses';
 
   constructor(private http: HttpClient) {}
 
   getByCategory(categoryId: string): Observable<CourseDto[]> {
     const params = new HttpParams().set('categoryId', categoryId);
-    return this.http.get<CourseDto[]>(this.apiUrl, { params });
+    return this.http.get<CourseDto[]>(this.apiUrlByCategory, { params });
+  }
+
+  getAll(): Observable<CourseDto[]> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(res => res.items)
+    );
   }
 
   create(course: any) {
